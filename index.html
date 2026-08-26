@@ -189,6 +189,36 @@ footer{background:var(--negro);padding:3rem 5%}
   </ul>
 </nav>
 
+<!-- SLIDER -->
+<section style="margin-top:75px;position:relative;overflow:hidden;background:#000">
+  <div id="slider" style="display:flex;transition:transform 0.5s ease;will-change:transform">
+    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
+      <img src="Banner_1.png" alt="Sensacolor" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    </div>
+    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
+      <img src="Banner_2.png" alt="Pide ahora" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    </div>
+    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="abrirModal('sensamastic')">
+      <img src="Banner_3.png" alt="Sensamastic" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    </div>
+    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="abrirModal('sensafil')">
+      <img src="Banner_4.png" alt="Sensafil" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    </div>
+  </div>
+
+  <!-- Flechas -->
+  <button onclick="moverSlider(-1)" style="position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10">&#8249;</button>
+  <button onclick="moverSlider(1)" style="position:absolute;top:50%;right:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10">&#8250;</button>
+
+  <!-- Puntos -->
+  <div id="dots" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10">
+    <button onclick="irASlide(0)" class="dot active-dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:1;transition:opacity 0.2s"></button>
+    <button onclick="irASlide(1)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
+    <button onclick="irASlide(2)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
+    <button onclick="irASlide(3)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
+  </div>
+</section>
+
 <section class="hero">
   <div class="hero-left">
     <div class="hero-logo"><img src="logo.png" alt="Sensacolor"></div>
@@ -452,6 +482,22 @@ footer{background:var(--negro);padding:3rem 5%}
   </div>
 </div>
 
+<!-- FERRETEROS -->
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1800ad 100%);padding:5rem 5%;position:relative;overflow:hidden">
+  <div style="position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.03);border-radius:50%;top:-150px;right:-100px;pointer-events:none"></div>
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;position:relative;z-index:2">
+    <div>
+      <div style="display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.2);margin-bottom:1.2rem">Para ferreterías y distribuidores</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em">¿Eres ferretero o distribuidor? <span style="color:rgba(255,255,255,0.6)">Ofrece Sensacolor en tu negocio.</span></h2>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;font-weight:300;margin-bottom:0">Trabajamos con ferreterías y distribuidores en toda la región Caribe. Precios por volumen, producto directo de fábrica y respaldo de una marca con más de 17 años en el mercado.</p>
+    </div>
+    <div style="flex-shrink:0;text-align:center">
+      <a href="https://wa.me/573209797767?text=Hola,%20soy%20ferretero%20y%20quiero%20ofrecer%20Sensacolor%20en%20mi%20negocio" target="_blank" style="display:inline-block;background:#25D366;color:white;padding:1.1rem 2.2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;transition:transform 0.2s;box-shadow:0 4px 20px rgba(37,211,102,0.3)">Escríbenos ahora</a>
+      <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:0.8rem">Respondemos rápido</p>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACTO -->
 <section class="contacto-section" id="contacto">
   <div class="contacto-inner">
@@ -533,6 +579,16 @@ footer{background:var(--negro);padding:3rem 5%}
 </a>
 
 <script>
+// SLIDER
+let sliderActual=0;const totalSlides=4;
+function actualizarSlider(){
+  document.getElementById('slider').style.transform=`translateX(-${sliderActual*100}%)`;
+  document.querySelectorAll('.dot').forEach((d,i)=>d.style.opacity=i===sliderActual?'1':'0.45');
+}
+function moverSlider(dir){sliderActual=(sliderActual+dir+totalSlides)%totalSlides;actualizarSlider()}
+function irASlide(i){sliderActual=i;actualizarSlider()}
+setInterval(()=>moverSlider(1),5000);
+
 function abrirModal(id){document.getElementById('modal-'+id).classList.add('active');document.body.style.overflow='hidden'}
 function cerrarModal(id){document.getElementById('modal-'+id).classList.remove('active');document.body.style.overflow=''}
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this){this.classList.remove('active');document.body.style.overflow=''}})});
