@@ -20,55 +20,23 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .nav-cta:hover{background:var(--azul)!important}
 
 /* HERO */
-.hero{min-height:100vh;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-claro) 100%);display:grid;grid-template-columns:1fr 1fr;align-items:center;padding:100px 5% 60px;position:relative;overflow:hidden;gap:2rem}
-.hero::before{content:'';position:absolute;width:600px;height:600px;background:rgba(255,255,255,0.04);border-radius:50%;top:-150px;right:5%;pointer-events:none}
-.hero::after{content:'';position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.03);border-radius:50%;bottom:-100px;left:10%;pointer-events:none}
-
-/* HERO LEFT */
-.hero-left{position:relative;z-index:2}
+.hero{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-claro) 100%);display:flex;align-items:center;justify-content:center;padding:5rem 5%;position:relative;overflow:hidden;text-align:center}
+.hero::before{content:'';position:absolute;width:600px;height:600px;background:rgba(255,255,255,0.04);border-radius:50%;top:-150px;right:-100px;pointer-events:none}
+.hero::after{content:'';position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.03);border-radius:50%;bottom:-100px;left:5%;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:700px}
 .hero-logo{margin-bottom:2rem}
-.hero-logo img{height:90px;filter:brightness(0) invert(1)}
-.hero h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1rem;letter-spacing:-0.02em}
+.hero-logo img{height:110px;filter:brightness(0) invert(1)}
+.hero h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em}
 .hero h1 span{color:rgba(255,255,255,0.6)}
 .hero-desc{font-size:1rem;color:rgba(255,255,255,0.82);line-height:1.7;margin-bottom:2rem;font-weight:300}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
 .btn-primary{background:white;color:var(--azul);padding:0.85rem 1.8rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
 .btn-secondary{background:rgba(255,255,255,0.15);color:white;padding:0.85rem 1.8rem;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;border:1px solid rgba(255,255,255,0.3)}
 .btn-secondary:hover{background:rgba(255,255,255,0.25)}
-.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.2)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.2)}
 .stat-num{font-size:1.8rem;font-weight:900;color:white;line-height:1}
 .stat-label{font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.3rem}
-
-/* HERO RIGHT — productos flotando */
-.hero-right{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;height:500px}
-.floating-products{position:relative;width:100%;height:100%}
-.float-card{position:absolute;background:rgba(255,255,255,0.12);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);border-radius:16px;padding:1rem;display:flex;flex-direction:column;align-items:center;gap:0.6rem;transition:transform 0.3s;cursor:pointer}
-.float-card:hover{transform:translateY(-6px) scale(1.03)}
-.float-card img{border-radius:10px;object-fit:contain;background:white}
-.float-card span{color:white;font-size:0.75rem;font-weight:600;text-align:center;letter-spacing:0.02em}
-
-.fc1{width:140px;top:10%;left:5%;animation:float1 4s ease-in-out infinite}
-.fc1 img{width:100px;height:100px}
-
-.fc2{width:130px;top:5%;right:10%;animation:float2 5s ease-in-out infinite}
-.fc2 img{width:90px;height:90px}
-
-.fc3{width:145px;top:40%;left:20%;animation:float3 4.5s ease-in-out infinite}
-.fc3 img{width:105px;height:105px}
-
-.fc4{width:135px;top:35%;right:5%;animation:float1 5.5s ease-in-out infinite reverse}
-.fc4 img{width:95px;height:95px}
-
-.fc5{width:130px;bottom:10%;left:8%;animation:float2 4s ease-in-out infinite reverse}
-.fc5 img{width:90px;height:90px}
-
-.fc6{width:140px;bottom:5%;right:15%;animation:float3 5s ease-in-out infinite}
-.fc6 img{width:100px;height:100px}
-
-@keyframes float1{0%,100%{transform:translateY(0px)}50%{transform:translateY(-14px)}}
-@keyframes float2{0%,100%{transform:translateY(0px)}50%{transform:translateY(-10px)}}
-@keyframes float3{0%,100%{transform:translateY(0px)}50%{transform:translateY(-18px)}}
 
 /* SERVICIOS */
 .servicios{padding:5rem 5%;background:var(--gris-claro)}
@@ -165,9 +133,7 @@ footer{background:var(--negro);padding:3rem 5%}
 .whatsapp-float:hover{transform:scale(1.1)}
 .whatsapp-float svg{width:28px;height:28px;fill:white}
 
-@media(max-width:900px){
-  .hero{grid-template-columns:1fr;padding-top:120px}
-  .hero-right{display:none}
+@media(max-width:768px){
   .nav-links{display:none}
   .hero-stats{gap:1.5rem;flex-wrap:wrap}
   .footer-inner{flex-direction:column;text-align:center}
@@ -180,6 +146,7 @@ footer{background:var(--negro);padding:3rem 5%}
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="nav-logo"><img src="logo.png" alt="Sensacolor"></div>
   <ul class="nav-links">
@@ -192,35 +159,32 @@ footer{background:var(--negro);padding:3rem 5%}
 <!-- SLIDER -->
 <section style="margin-top:75px;position:relative;overflow:hidden;background:#000">
   <div id="slider" style="display:flex;transition:transform 0.5s ease;will-change:transform">
-    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
-      <img src="Banner_1.png" alt="Sensacolor" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    <div style="min-width:100%;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
+      <img src="Banner_1.png" alt="Sensacolor" style="width:100%;display:block;max-height:630px;object-fit:cover">
     </div>
-    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
-      <img src="Banner_2.png" alt="Pide ahora" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    <div style="min-width:100%;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
+      <img src="Banner_2.png" alt="Pide ahora" style="width:100%;display:block;max-height:630px;object-fit:cover">
     </div>
-    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="abrirModal('sensamastic')">
-      <img src="Banner_3.png" alt="Sensamastic" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    <div style="min-width:100%;cursor:pointer" onclick="abrirModal('sensamastic')">
+      <img src="Banner_3.png" alt="Sensamastic" style="width:100%;display:block;max-height:630px;object-fit:cover">
     </div>
-    <div class="slide" style="min-width:100%;position:relative;cursor:pointer" onclick="abrirModal('sensafil')">
-      <img src="Banner_4.png" alt="Sensafil" style="width:100%;display:block;max-height:520px;object-fit:cover">
+    <div style="min-width:100%;cursor:pointer" onclick="abrirModal('sensafil')">
+      <img src="Banner_4.png" alt="Sensafil" style="width:100%;display:block;max-height:630px;object-fit:cover">
     </div>
   </div>
-
-  <!-- Flechas -->
-  <button onclick="moverSlider(-1)" style="position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10">&#8249;</button>
-  <button onclick="moverSlider(1)" style="position:absolute;top:50%;right:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;z-index:10">&#8250;</button>
-
-  <!-- Puntos -->
+  <button onclick="moverSlider(-1)" style="position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10">&#8249;</button>
+  <button onclick="moverSlider(1)" style="position:absolute;top:50%;right:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10">&#8250;</button>
   <div id="dots" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10">
-    <button onclick="irASlide(0)" class="dot active-dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:1;transition:opacity 0.2s"></button>
-    <button onclick="irASlide(1)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
-    <button onclick="irASlide(2)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
-    <button onclick="irASlide(3)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45;transition:opacity 0.2s"></button>
+    <button onclick="irASlide(0)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:1"></button>
+    <button onclick="irASlide(1)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
+    <button onclick="irASlide(2)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
+    <button onclick="irASlide(3)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
   </div>
 </section>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
+  <div class="hero-content">
     <div class="hero-logo"><img src="logo.png" alt="Sensacolor"></div>
     <h1>Fábrica de Pinturas <span>Sensacolor S.A.S.</span></h1>
     <p class="hero-desc">Vinilos, esmaltes, estucos e impermeabilizantes de calidad directamente de fábrica. Con presencia en toda la región Caribe colombiana.</p>
@@ -234,37 +198,9 @@ footer{background:var(--negro);padding:3rem 5%}
       <div><div class="stat-num">30+</div><div class="stat-label">Colores disponibles</div></div>
     </div>
   </div>
-
-  <div class="hero-right">
-    <div class="floating-products">
-      <div class="float-card fc1" onclick="abrirModal('vinilos')">
-        <img src="Vinilo_Tipo_1.png" alt="Vinilo Tipo 1">
-        <span>Vinilo Tipo 1</span>
-      </div>
-      <div class="float-card fc2" onclick="abrirModal('vinilos')">
-        <img src="Vinilo_Tipo_2.png" alt="Vinilo Tipo 2">
-        <span>Vinilo Tipo 2</span>
-      </div>
-      <div class="float-card fc3" onclick="abrirModal('esmaltes')">
-        <img src="Esmalte_Pro.png" alt="Esmalte Pro">
-        <span>Esmalte Pro</span>
-      </div>
-      <div class="float-card fc4" onclick="abrirModal('sensafil')">
-        <img src="Impermeabilizante_Sensafil.png" alt="Sensafil">
-        <span>Sensafil</span>
-      </div>
-      <div class="float-card fc5" onclick="abrirModal('estucos')">
-        <img src="Estuco_Exterior.png" alt="Estuco">
-        <span>Estuco Acrílico</span>
-      </div>
-      <div class="float-card fc6" onclick="abrirModal('sensamastic')">
-        <img src="Sensamastic.png" alt="Sensamastic">
-        <span>Sensamastic</span>
-      </div>
-    </div>
-  </div>
 </section>
 
+<!-- SERVICIOS -->
 <section class="servicios">
   <div class="servicios-grid">
     <div class="servicio-card">
@@ -290,6 +226,22 @@ footer{background:var(--negro);padding:3rem 5%}
   </div>
 </section>
 
+<!-- FERRETEROS -->
+<section style="background:linear-gradient(135deg,#0f172a 0%,#1800ad 100%);padding:4rem 5%;position:relative;overflow:hidden">
+  <div style="position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.03);border-radius:50%;top:-150px;right:-100px;pointer-events:none"></div>
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;position:relative;z-index:2">
+    <div>
+      <div style="display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.2);margin-bottom:1.2rem">Para ferreterías y distribuidores</div>
+      <h2 style="font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em">¿Eres ferretero o distribuidor? <span style="color:rgba(255,255,255,0.6)">Ofrece Sensacolor en tu negocio.</span></h2>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;font-weight:300">Trabajamos con ferreterías y distribuidores en toda la región Caribe. Precios por volumen, producto directo de fábrica y respaldo de una marca con más de 17 años en el mercado.</p>
+    </div>
+    <div style="flex-shrink:0;text-align:center">
+      <a href="https://wa.me/573209797767?text=Hola,%20soy%20ferretero%20y%20quiero%20ofrecer%20Sensacolor%20en%20mi%20negocio" target="_blank" style="display:inline-block;background:#25D366;color:white;padding:1.1rem 2.2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;box-shadow:0 4px 20px rgba(37,211,102,0.3)">Escríbenos ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORÍAS -->
 <section class="categorias" id="productos">
   <div class="section-header">
     <div class="section-eyebrow">Catálogo completo</div>
@@ -482,22 +434,6 @@ footer{background:var(--negro);padding:3rem 5%}
   </div>
 </div>
 
-<!-- FERRETEROS -->
-<section style="background:linear-gradient(135deg,#0f172a 0%,#1800ad 100%);padding:5rem 5%;position:relative;overflow:hidden">
-  <div style="position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.03);border-radius:50%;top:-150px;right:-100px;pointer-events:none"></div>
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;position:relative;z-index:2">
-    <div>
-      <div style="display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.2);margin-bottom:1.2rem">Para ferreterías y distribuidores</div>
-      <h2 style="font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em">¿Eres ferretero o distribuidor? <span style="color:rgba(255,255,255,0.6)">Ofrece Sensacolor en tu negocio.</span></h2>
-      <p style="font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;font-weight:300;margin-bottom:0">Trabajamos con ferreterías y distribuidores en toda la región Caribe. Precios por volumen, producto directo de fábrica y respaldo de una marca con más de 17 años en el mercado.</p>
-    </div>
-    <div style="flex-shrink:0;text-align:center">
-      <a href="https://wa.me/573209797767?text=Hola,%20soy%20ferretero%20y%20quiero%20ofrecer%20Sensacolor%20en%20mi%20negocio" target="_blank" style="display:inline-block;background:#25D366;color:white;padding:1.1rem 2.2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;transition:transform 0.2s;box-shadow:0 4px 20px rgba(37,211,102,0.3)">Escríbenos ahora</a>
-      <p style="color:rgba(255,255,255,0.5);font-size:0.78rem;margin-top:0.8rem">Respondemos rápido</p>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACTO -->
 <section class="contacto-section" id="contacto">
   <div class="contacto-inner">
@@ -553,7 +489,7 @@ footer{background:var(--negro);padding:3rem 5%}
 
 <section class="cta-section">
   <h2>Listos para atenderte</h2>
-  <p>Escríbenos y te asesoramos. Respondemos rápido.</p>
+  <p>Escríbenos y te asesoramos.</p>
   <div class="cta-btns">
     <a href="https://wa.me/573209797767" class="btn-whatsapp" target="_blank">Escribir por WhatsApp</a>
     <a href="https://www.instagram.com/pinturasensacolor" class="btn-ig" target="_blank">Instagram</a>
@@ -579,21 +515,15 @@ footer{background:var(--negro);padding:3rem 5%}
 </a>
 
 <script>
-// SLIDER
-let sliderActual=0;const totalSlides=4;
-function actualizarSlider(){
-  document.getElementById('slider').style.transform=`translateX(-${sliderActual*100}%)`;
-  document.querySelectorAll('.dot').forEach((d,i)=>d.style.opacity=i===sliderActual?'1':'0.45');
-}
-function moverSlider(dir){sliderActual=(sliderActual+dir+totalSlides)%totalSlides;actualizarSlider()}
-function irASlide(i){sliderActual=i;actualizarSlider()}
+let sc=0;const ts=4;
+function actualizarSlider(){document.getElementById('slider').style.transform=`translateX(-${sc*100}%)`;document.querySelectorAll('.dot').forEach((d,i)=>d.style.opacity=i===sc?'1':'0.45')}
+function moverSlider(dir){sc=(sc+dir+ts)%ts;actualizarSlider()}
+function irASlide(i){sc=i;actualizarSlider()}
 setInterval(()=>moverSlider(1),5000);
-
 function abrirModal(id){document.getElementById('modal-'+id).classList.add('active');document.body.style.overflow='hidden'}
 function cerrarModal(id){document.getElementById('modal-'+id).classList.remove('active');document.body.style.overflow=''}
 document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this){this.classList.remove('active');document.body.style.overflow=''}})});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.active').forEach(m=>{m.classList.remove('active');document.body.style.overflow=''})}});
-
 document.getElementById('contactForm').addEventListener('submit',function(e){
   e.preventDefault();
   const data=new FormData(this);
