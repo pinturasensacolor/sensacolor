@@ -11,7 +11,7 @@
   --papel:#f5f6fb;         /* fondo alterno */
   --blanco:#ffffff;
   --linea:#dde0ee;
-  --oro:#ff5e3a;           /* acento de marca (naranja coral) */
+  --oro:#5cc8ff;           /* acento: azul cielo que contrasta con el azul de marca */
   --wa:#1faa55;            /* WhatsApp, un poco más oscuro para contraste */
   --wa-hover:#178c45;
 
@@ -87,7 +87,7 @@ p{margin:0}
 .vitrina .lado:first-child{margin-right:-12%}
 .vitrina .lado:nth-child(3){margin-left:-12%;justify-self:end}
 .vitrina .centro{z-index:1;margin-bottom:-.4rem}
-.vitrina figcaption{grid-column:1/-1;font-family:var(--f-display);font-weight:700;font-size:1rem;letter-spacing:.06em;text-transform:uppercase;color:var(--azul);text-align:center;border-top:1px solid var(--linea);padding:.7rem 0;margin-top:.2rem}
+.vitrina figcaption{grid-column:1/-1;font-family:var(--f-texto);font-weight:500;font-size:clamp(1.05rem,1.6vw,1.2rem);letter-spacing:normal;text-transform:none;color:var(--azul);text-align:center;border-top:1px solid var(--linea);padding:.7rem 0;margin-top:.2rem}
 @media (max-width:860px){.hero .envoltura{grid-template-columns:1fr}.vitrina{max-width:520px}}
 
 /* ---------- Cifras ---------- */
