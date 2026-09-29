@@ -1,537 +1,284 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es-CO">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pinturas Sensacolor — Fábrica de Pinturas</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--azul:#1800ad;--azul-claro:#0d7bff;--blanco:#ffffff;--gris-claro:#f5f7fa;--gris-texto:#64748b;--negro:#0f172a}
-body{font-family:'Inter',sans-serif;background:var(--blanco);color:var(--negro);overflow-x:hidden}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,0.08);padding:0 5%;height:75px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo img{height:52px;filter:invert(1) sepia(1) saturate(5) hue-rotate(200deg)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--negro);font-size:0.9rem;font-weight:500;transition:color 0.2s}
-.nav-links a:hover{color:var(--azul-claro)}
-.nav-cta{background:var(--azul-claro);color:white!important;padding:0.5rem 1.2rem;border-radius:6px}
-.nav-cta:hover{background:var(--azul)!important}
-
-/* HERO */
-.hero{background:linear-gradient(135deg,var(--azul) 0%,var(--azul-claro) 100%);display:flex;align-items:center;justify-content:center;padding:5rem 5%;position:relative;overflow:hidden;text-align:center}
-.hero::before{content:'';position:absolute;width:600px;height:600px;background:rgba(255,255,255,0.04);border-radius:50%;top:-150px;right:-100px;pointer-events:none}
-.hero::after{content:'';position:absolute;width:400px;height:400px;background:rgba(255,255,255,0.03);border-radius:50%;bottom:-100px;left:5%;pointer-events:none}
-.hero-content{position:relative;z-index:2;max-width:700px}
-.hero-logo{margin-bottom:2rem}
-.hero-logo img{height:110px;filter:brightness(0) invert(1)}
-.hero h1{font-size:clamp(2rem,3.5vw,3rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em}
-.hero h1 span{color:rgba(255,255,255,0.6)}
-.hero-desc{font-size:1rem;color:rgba(255,255,255,0.82);line-height:1.7;margin-bottom:2rem;font-weight:300}
-.hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
-.btn-primary{background:white;color:var(--azul);padding:0.85rem 1.8rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;transition:transform 0.2s,box-shadow 0.2s}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,0.2)}
-.btn-secondary{background:rgba(255,255,255,0.15);color:white;padding:0.85rem 1.8rem;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;border:1px solid rgba(255,255,255,0.3)}
-.btn-secondary:hover{background:rgba(255,255,255,0.25)}
-.hero-stats{display:flex;gap:3rem;justify-content:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.2)}
-.stat-num{font-size:1.8rem;font-weight:900;color:white;line-height:1}
-.stat-label{font-size:0.75rem;color:rgba(255,255,255,0.65);margin-top:0.3rem}
-
-/* SERVICIOS */
-.servicios{padding:5rem 5%;background:var(--gris-claro)}
-.servicios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;max-width:1100px;margin:0 auto}
-.servicio-card{background:white;border-radius:12px;padding:2rem;text-align:center;border:1px solid rgba(0,0,0,0.06)}
-.servicio-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--azul),var(--azul-claro));border-radius:10px;margin:0 auto 1rem;display:flex;align-items:center;justify-content:center}
-.servicio-icon svg{width:22px;height:22px;fill:white}
-.servicio-card h3{font-size:1rem;font-weight:700;margin-bottom:0.5rem}
-.servicio-card p{font-size:0.85rem;color:var(--gris-texto);line-height:1.5}
-
-/* SECTION HEADER */
-.section-header{text-align:center;margin-bottom:3rem}
-.section-eyebrow{font-size:0.78rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--azul-claro);margin-bottom:0.8rem}
-.section-header h2{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:var(--negro);letter-spacing:-0.02em}
-.section-header p{font-size:1rem;color:var(--gris-texto);margin-top:0.8rem;font-weight:300}
-
-/* CATEGORÍAS */
-.categorias{padding:5rem 5%;background:white}
-.categorias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;max-width:1200px;margin:0 auto}
-.categoria-card{border-radius:14px;overflow:hidden;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;border:1px solid rgba(0,0,0,0.08)}
-.categoria-card:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(13,123,255,0.14)}
-.categoria-img{height:180px;overflow:hidden;position:relative}
-.categoria-img img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
-.categoria-card:hover .categoria-img img{transform:scale(1.05)}
-.categoria-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.6) 0%,transparent 60%);display:flex;align-items:flex-end;padding:1rem 1.2rem}
-.categoria-overlay h3{color:white;font-size:1.2rem;font-weight:800}
-.categoria-footer{padding:0.9rem 1.2rem;background:white;display:flex;justify-content:flex-end;align-items:center}
-.categoria-arrow{width:28px;height:28px;background:var(--azul-claro);border-radius:50%;display:flex;align-items:center;justify-content:center}
-.categoria-arrow svg{width:14px;height:14px;fill:white}
-
-/* MODAL */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.65);z-index:200;align-items:center;justify-content:center;padding:1.5rem}
-.modal-overlay.active{display:flex}
-.modal{background:white;border-radius:16px;max-width:860px;width:100%;max-height:88vh;overflow-y:auto;padding:2.5rem;position:relative}
-.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:var(--gris-claro);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;color:var(--negro)}
-.modal-close:hover{background:#e2e8f0}
-.modal-eyebrow{font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--azul-claro);margin-bottom:0.4rem}
-.modal h2{font-size:1.7rem;font-weight:900;color:var(--negro);margin-bottom:0.4rem;letter-spacing:-0.02em}
-.modal-desc{font-size:0.95rem;color:var(--gris-texto);margin-bottom:2rem;line-height:1.6}
-.productos-lista{display:grid;gap:1.2rem}
-.producto-item{background:var(--gris-claro);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:130px 1fr auto;align-items:stretch}
-.producto-item-img{width:130px;height:130px;background:white;display:flex;align-items:center;justify-content:center}
-.producto-item-img img{width:100%;height:100%;object-fit:contain;padding:0.5rem}
-.producto-item-body{padding:1.1rem;display:flex;flex-direction:column;justify-content:center;gap:0.4rem}
-.producto-item-body h4{font-size:0.95rem;font-weight:700;color:var(--negro)}
-.producto-item-body p{font-size:0.82rem;color:var(--gris-texto);line-height:1.5}
-.producto-tags{display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.4rem}
-.tag{background:white;border:1px solid rgba(0,0,0,0.1);color:var(--negro);font-size:0.7rem;font-weight:600;padding:0.2rem 0.6rem;border-radius:100px}
-.producto-item-cta{padding:1rem;display:flex;align-items:center;justify-content:center;background:white;border-left:1px solid rgba(0,0,0,0.06)}
-.btn-pedir{background:var(--azul-claro);color:white;padding:0.6rem 1.1rem;border-radius:7px;font-weight:700;font-size:0.8rem;text-decoration:none;white-space:nowrap;transition:background 0.2s}
-.btn-pedir:hover{background:var(--azul)}
-.modal-cta{margin-top:2rem;padding-top:1.5rem;border-top:1px solid rgba(0,0,0,0.08);text-align:center}
-.modal-cta p{font-size:0.9rem;color:var(--gris-texto);margin-bottom:1rem}
-.btn-whatsapp-modal{background:#25D366;color:white;padding:0.8rem 2rem;border-radius:8px;font-weight:700;font-size:0.9rem;text-decoration:none;display:inline-block}
-
-/* CONTACTO */
-.contacto-section{padding:5rem 5%;background:var(--gris-claro)}
-.contacto-inner{max-width:600px;margin:0 auto;text-align:center}
-.contacto-inner h2{font-size:clamp(1.8rem,3vw,2.3rem);font-weight:900;color:var(--negro);margin-bottom:0.5rem;letter-spacing:-0.02em}
-.contacto-inner p{font-size:1rem;color:var(--gris-texto);margin-bottom:2rem}
-.contacto-form{background:white;border-radius:16px;padding:2rem;border:1px solid rgba(0,0,0,0.08)}
-.form-group{margin-bottom:1.2rem;text-align:left}
-.form-group label{display:block;font-size:0.85rem;font-weight:600;color:var(--negro);margin-bottom:0.4rem}
-.form-group input,.form-group textarea,.form-group select{width:100%;padding:0.75rem 1rem;border:1px solid rgba(0,0,0,0.12);border-radius:8px;font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--negro);outline:none;transition:border-color 0.2s}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--azul-claro)}
-.form-group textarea{resize:vertical;min-height:100px}
-.btn-submit{width:100%;background:var(--azul-claro);color:white;padding:0.9rem;border:none;border-radius:8px;font-weight:700;font-size:0.95rem;cursor:pointer;transition:background 0.2s;font-family:'Inter',sans-serif}
-.btn-submit:hover{background:var(--azul)}
-.form-success{display:none;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:1rem;text-align:center;color:#166534;font-weight:600;margin-top:1rem;font-size:0.9rem}
-.contacto-btns{display:flex;gap:1rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
-.btn-whatsapp-contact{background:#25D366;color:white;padding:0.85rem 2rem;border-radius:8px;font-weight:700;font-size:0.95rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;transition:transform 0.2s}
-.btn-whatsapp-contact:hover{transform:translateY(-2px)}
-
-/* CTA */
-.cta-section{padding:5rem 5%;background:linear-gradient(135deg,var(--azul) 0%,var(--azul-claro) 100%);text-align:center}
-.cta-section h2{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:white;margin-bottom:1rem;letter-spacing:-0.02em}
-.cta-section p{font-size:1.05rem;color:rgba(255,255,255,0.85);margin-bottom:2.5rem;font-weight:300}
-.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-whatsapp{background:#25D366;color:white;padding:1rem 2.5rem;border-radius:8px;font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:0.6rem;transition:transform 0.2s}
-.btn-whatsapp:hover{transform:translateY(-2px)}
-.btn-ig{color:white;padding:1rem 2rem;border-radius:8px;font-weight:600;text-decoration:none;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3)}
-
-/* FOOTER */
-footer{background:var(--negro);padding:3rem 5%}
-.footer-inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
-.footer-logo img{height:36px;filter:brightness(0) invert(1);opacity:0.8}
-.footer-links{display:flex;gap:1.5rem}
-.footer-links a{color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.88rem;transition:color 0.2s}
-.footer-links a:hover{color:white}
-.footer-copy{font-size:0.82rem;color:rgba(255,255,255,0.4)}
-
-/* WHATSAPP FLOAT */
-.whatsapp-float{position:fixed;bottom:2rem;right:2rem;background:#25D366;color:white;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);z-index:999;transition:transform 0.2s}
-.whatsapp-float:hover{transform:scale(1.1)}
-.whatsapp-float svg{width:28px;height:28px;fill:white}
-
-@media(max-width:768px){
-  .nav-links{display:none}
-  .hero-stats{gap:1.5rem;flex-wrap:wrap}
-  .footer-inner{flex-direction:column;text-align:center}
-  .footer-links{flex-wrap:wrap;justify-content:center}
-  .producto-item{grid-template-columns:100px 1fr;grid-template-rows:auto auto}
-  .producto-item-img{width:100px;height:100px}
-  .producto-item-cta{grid-column:1/-1;border-left:none;border-top:1px solid rgba(0,0,0,0.06);padding:0.8rem}
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Pinturas Sensacolor Colombia | Fábrica de pinturas en Barranquilla</title>
+<meta name="description" content="Pinturas Sensacolor, fábrica colombiana en Barranquilla: vinilos, esmaltes, anticorrosivo, estucos, impermeabilizante Sensafil y pegantes. Directo de fábrica. Pide por WhatsApp.">
+<link rel="canonical" href="https://sensacolor.co/">
+<meta name="theme-color" content="#1800ad">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pinturas Sensacolor">
+<meta property="og:locale" content="es_CO">
+<meta property="og:title" content="Pinturas Sensacolor Colombia | Fábrica de pinturas en Barranquilla">
+<meta property="og:description" content="Pinturas Sensacolor, fábrica colombiana en Barranquilla: vinilos, esmaltes, anticorrosivo, estucos, impermeabilizante Sensafil y pegantes. Directo de fábrica. Pide por WhatsApp.">
+<meta property="og:url" content="https://sensacolor.co/">
+<meta property="og:image" content="https://sensacolor.co/Banner_1.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "@id": "https://sensacolor.co/#organizacion", "name": "Pinturas Sensacolor S.A.S.", "alternateName": ["Sensacolor", "Sensacolor Colombia", "Pinturas Sensacolor"], "url": "https://sensacolor.co/", "logo": "https://sensacolor.co/img/icono-512.png", "image": "https://sensacolor.co/Banner_1.png", "description": "Fábrica colombiana de pinturas en Barranquilla: vinilos, esmaltes, estucos, impermeabilizantes y pegantes.", "telephone": "+57 320 979 7767", "email": "infopinsensacolor@gmail.com", "address": {"@type": "PostalAddress", "addressLocality": "Barranquilla", "addressRegion": "Atlántico", "addressCountry": "CO"}, "areaServed": [{"@type": "City", "name": "Barranquilla"}, {"@type": "AdministrativeArea", "name": "Región Caribe de Colombia"}], "sameAs": ["https://www.instagram.com/pinturasensacolor", "https://www.tiktok.com/@pinturasensacolor"]}, {"@context": "https://schema.org", "@type": "WebSite", "name": "Pinturas Sensacolor", "alternateName": "Sensacolor Colombia", "url": "https://sensacolor.co/", "inLanguage": "es-CO", "publisher": {"@id": "https://sensacolor.co/#organizacion"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Dónde compro productos Sensacolor?", "acceptedAnswer": {"@type": "Answer", "text": "Puedes pedir directo a la fábrica por WhatsApp al 320 979 7767, o conseguirlos en ferreterías y distribuidores de la región Caribe que trabajan con nosotros. Escríbenos y te decimos cuál te queda más cerca."}}, {"@type": "Question", "name": "¿Hacen entregas en Barranquilla?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Los pedidos en Barranquilla se pueden entregar el mismo día; aplican términos y condiciones. Escríbenos con tu pedido y tu barrio para confirmarte."}}, {"@type": "Question", "name": "¿En qué presentaciones vienen?", "acceptedAnswer": {"@type": "Answer", "text": "Los vinilos, estucos y Sensafil vienen en galón, ½ cuñete y cuñete. Los esmaltes y el anticorrosivo en galón y ¼ de galón. Los pegantes y el estuco en polvo en bolsa de 25 kg, y la boquilla y el Fijacolor en 2 kg."}}, {"@type": "Question", "name": "¿Qué colores tienen?", "acceptedAnswer": {"@type": "Answer", "text": "Tenemos más de 30 colores para interiores, exteriores y acabados especiales. Pídenos la carta de colores por WhatsApp y te la enviamos."}}, {"@type": "Question", "name": "Tengo una ferretería, ¿puedo vender Sensacolor?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Trabajamos con ferreterías y distribuidores en toda la región Caribe, con precios por volumen y producto directo de fábrica. Escríbenos y te enviamos la información."}}, {"@type": "Question", "name": "¿Sensacolor es la misma marca de México o Venezuela?", "acceptedAnswer": {"@type": "Answer", "text": "No. Pinturas Sensacolor S.A.S. es una fábrica colombiana con sede en Barranquilla, sin relación con marcas de nombre parecido en otros países."}}]}]</script>
 </head>
 <body>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo"><img src="logo.png" alt="Sensacolor"></div>
-  <ul class="nav-links">
-    <li><a href="#productos">Productos</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-    <li><a href="https://wa.me/573209797767" class="nav-cta" target="_blank">Pedir ahora</a></li>
-  </ul>
-</nav>
-
-<!-- SLIDER -->
-<section style="margin-top:75px;position:relative;overflow:hidden;background:#000">
-  <div id="slider" style="display:flex;transition:transform 0.5s ease;will-change:transform">
-    <div style="min-width:100%;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
-      <img src="Banner_1.png" alt="Sensacolor" style="width:100%;display:block;max-height:630px;object-fit:cover">
-    </div>
-    <div style="min-width:100%;cursor:pointer" onclick="window.open('https://wa.me/573209797767','_blank')">
-      <img src="Banner_2.png" alt="Pide ahora" style="width:100%;display:block;max-height:630px;object-fit:cover">
-    </div>
-    <div style="min-width:100%;cursor:pointer" onclick="abrirModal('sensamastic')">
-      <img src="Banner_3.png" alt="Sensamastic" style="width:100%;display:block;max-height:630px;object-fit:cover">
-    </div>
-    <div style="min-width:100%;cursor:pointer" onclick="abrirModal('sensafil')">
-      <img src="Banner_4.png" alt="Sensafil" style="width:100%;display:block;max-height:630px;object-fit:cover">
-    </div>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+<header class="cabecera">
+  <div class="envoltura">
+    <a class="marca" href="index.html" aria-label="Pinturas Sensacolor, inicio"><img src="img/logo-azul.png" alt="Sensacolor" width="775" height="220"></a>
+    <button class="menu-boton" id="menu-boton" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <nav class="menu" id="menu" aria-label="Principal">
+      <a href="index.html#productos">Productos</a>
+      <a href="index.html#que-necesitas">¿Qué necesito?</a>
+      <a href="index.html#ferreteros">Ferreteros</a>
+      <a href="index.html#contacto">Contacto</a>
+      <a class="btn btn-wa" href="https://wa.me/573209797767?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Sensacolor" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.35 9.35 0 0 1 2.76 6.66c0 5.2-4.23 9.42-9.42 9.42zm8.02-17.44A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.07c0 2 .52 3.94 1.51 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.77 1.47h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.31-8.01z"/></svg>Pedir por WhatsApp</a>
+    </nav>
   </div>
-  <button onclick="moverSlider(-1)" style="position:absolute;top:50%;left:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10">&#8249;</button>
-  <button onclick="moverSlider(1)" style="position:absolute;top:50%;right:1.2rem;transform:translateY(-50%);background:rgba(0,0,0,0.45);border:none;color:white;width:44px;height:44px;border-radius:50%;font-size:1.3rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10">&#8250;</button>
-  <div id="dots" style="position:absolute;bottom:1rem;left:50%;transform:translateX(-50%);display:flex;gap:0.5rem;z-index:10">
-    <button onclick="irASlide(0)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:1"></button>
-    <button onclick="irASlide(1)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
-    <button onclick="irASlide(2)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
-    <button onclick="irASlide(3)" class="dot" style="width:10px;height:10px;border-radius:50%;border:none;cursor:pointer;background:white;opacity:0.45"></button>
-  </div>
-</section>
+</header>
+<main id="contenido">
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-logo"><img src="logo.png" alt="Sensacolor"></div>
-    <h1>Fábrica de Pinturas <span>Sensacolor S.A.S.</span></h1>
-    <p class="hero-desc">Vinilos, esmaltes, estucos e impermeabilizantes de calidad directamente de fábrica. Con presencia en toda la región Caribe colombiana.</p>
-    <div class="hero-btns">
-      <a href="#productos" class="btn-primary">Ver productos</a>
-      <a href="https://wa.me/573209797767" class="btn-secondary" target="_blank">Escribir por WhatsApp</a>
+  <div class="envoltura">
+    <div class="hero-texto">
+      <p class="sello">Fábrica de pinturas en Barranquilla</p>
+      <h1>Colores que transforman, <em>calidad que dura</em></h1>
+      <p class="hero-desc">Vinilos, esmaltes, estucos, impermeabilizantes y pegantes hechos en nuestra fábrica de Barranquilla. Directo de fábrica, sin intermediarios, para toda la región Caribe colombiana.</p>
+      <div class="hero-acciones">
+        <a class="btn btn-wa" href="https://wa.me/573209797767?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Sensacolor" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.35 9.35 0 0 1 2.76 6.66c0 5.2-4.23 9.42-9.42 9.42zm8.02-17.44A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.07c0 2 .52 3.94 1.51 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.77 1.47h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.31-8.01z"/></svg>Pedir por WhatsApp</a>
+        <a class="btn btn-borde" href="#productos">Ver productos</a>
+      </div>
+      <p class="hero-nota">Pide hoy y recibe el mismo día en Barranquilla*. <span style="opacity:.7">*Aplican términos y condiciones.</span></p>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-num">+17</div><div class="stat-label">Años de experiencia</div></div>
-      <div><div class="stat-num">100%</div><div class="stat-label">Hecho en Colombia</div></div>
-      <div><div class="stat-num">30+</div><div class="stat-label">Colores disponibles</div></div>
+    <figure class="vitrina">
+      <img src="img/Esmalte_Pro_recorte.webp" alt="Esmalte Pro Sensacolor 2 en 1" width="472" height="573" class="lado">
+      <img src="img/Vinilo_Tipo_1_recorte.webp" alt="Vinilo Tipo 1 Sensacolor ultra lavable" width="587" height="671" class="centro">
+      <img src="img/Impermeabilizante_Sensafil_recorte.webp" alt="Impermeabilizante Sensafil" width="517" height="593" class="lado">
+      <figcaption>Hecho en Colombia</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="cifras" aria-label="Sensacolor en cifras">
+  <ul class="envoltura">
+    <li><strong>+17</strong><span>años fabricando pintura</span></li>
+    <li><strong>100%</strong><span>hecho en Colombia</span></li>
+    <li><strong>+30</strong><span>colores disponibles</span></li>
+    <li><strong>6</strong><span>líneas de producto</span></li>
+  </ul>
+</section>
+
+<section class="seccion papel" id="que-necesitas">
+  <div class="envoltura">
+    <div class="encabezado">
+      <p class="eyebrow">Guía rápida</p>
+      <h2>¿Qué vas a hacer?</h2>
+      <p>Elige tu trabajo y te llevamos al producto indicado.</p>
+    </div>
+    <div class="guia">
+<a class="muestra" href="vinilos.html" style="--c:#1800ad">
+  <span class="franja">Exterior</span>
+  <span class="cuerpo"><h3>Pintar una fachada</h3><p>Vinilo Tipo 1, ultra lavable y resistente al sol y la lluvia.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="vinilos.html" style="--c:#4b3fd6">
+  <span class="franja">Interior</span>
+  <span class="cuerpo"><h3>Pintar paredes por dentro</h3><p>Vinilo Tipo 2, buena cobertura y rendimiento.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="esmaltes-anticorrosivo.html" style="--c:#1f6b45">
+  <span class="franja">Metal</span>
+  <span class="cuerpo"><h3>Proteger rejas y portones</h3><p>Esmalte Pro 2 en 1 o anticorrosivo + esmalte.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="estucos.html" style="--c:#8a8f9c">
+  <span class="franja">Paredes</span>
+  <span class="cuerpo"><h3>Dejar la pared lisa</h3><p>Estuco acrílico listo o en polvo antes de pintar.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="impermeabilizante-sensafil.html" style="--c:#0b1d4a">
+  <span class="franja">Techos</span>
+  <span class="cuerpo"><h3>Acabar con las filtraciones</h3><p>Sensafil, impermeabilizante elástico sin soplete.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="sensamastic.html" style="--c:#e39a22">
+  <span class="franja">Drywall</span>
+  <span class="cuerpo"><h3>Tapar juntas de drywall</h3><p>Sensamastic, masilla plástica para juntas.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="pegantes.html" style="--c:#2f63c9">
+  <span class="franja">Pisos</span>
+  <span class="cuerpo"><h3>Pegar cerámica o porcelanato</h3><p>Pegantes PegaColor y boquilla con látex.</p><span class="ir">Ver productos →</span></span>
+</a>
+<a class="muestra" href="https://wa.me/573209797767?text=Hola%2C%20no%20s%C3%A9%20qu%C3%A9%20producto%20necesito.%20Les%20cuento%20mi%20caso%3A" target="_blank" rel="noopener" style="--c:#1faa55">
+  <span class="franja">Asesoría</span>
+  <span class="cuerpo"><h3>No sé qué necesito</h3><p>Mándanos una foto por WhatsApp y te asesoramos.</p><span class="ir">Escribir por WhatsApp →</span></span>
+</a>
     </div>
   </div>
 </section>
 
-<!-- SERVICIOS -->
-<section class="servicios">
-  <div class="servicios-grid">
-    <div class="servicio-card">
-      <div class="servicio-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm-7 14H8v-2h4v2zm4-4H8v-2h8v2zm0-4H8V7h8v2z"/></svg></div>
-      <h3>Directo de fábrica</h3>
-      <p>Sin intermediarios. Precio justo y producto fresco directo de producción.</p>
+<section class="seccion" id="productos">
+  <div class="envoltura">
+    <div class="encabezado">
+      <p class="eyebrow">Catálogo</p>
+      <h2>Nuestros productos</h2>
+      <p>Seis líneas formuladas y controladas en nuestra planta.</p>
     </div>
-    <div class="servicio-card">
-      <div class="servicio-icon"><svg viewBox="0 0 24 24"><path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-      <h3>Distribución regional</h3>
-      <p>Llegamos a ferreterías y distribuidores en toda la región Caribe colombiana.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-      <h3>Calidad garantizada</h3>
-      <p>Formulados y controlados en nuestra planta de producción propia.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="servicio-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-      <h3>+30 colores</h3>
-      <p>Amplia paleta para interiores, exteriores y acabados especiales.</p>
+    <div class="categorias">
+<a class="categoria" href="vinilos.html"><img src="img/Vinilos.webp" alt="Vinilos Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Vinilos</h3><span>Tipo 1 ultra lavable y Tipo 2 para interiores</span></span></a>
+<a class="categoria" href="esmaltes-anticorrosivo.html"><img src="img/Esmaltes.webp" alt="Esmaltes y anticorrosivo Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Esmaltes y anticorrosivo</h3><span>Para rejas, puertas y estructuras metálicas</span></span></a>
+<a class="categoria" href="estucos.html"><img src="img/Estucos.webp" alt="Estucos Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Estucos</h3><span>La base lisa antes de pintar</span></span></a>
+<a class="categoria" href="impermeabilizante-sensafil.html"><img src="img/Cover_Sensafil.webp" alt="Impermeabilizante Sensafil Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Impermeabilizante Sensafil</h3><span>Adiós a las filtraciones, sin soplete</span></span></a>
+<a class="categoria" href="sensamastic.html"><img src="img/Cover_Sensamastic.webp" alt="Sensamastic Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Sensamastic</h3><span>Masilla para juntas y drywall</span></span></a>
+<a class="categoria" href="pegantes.html"><img src="img/Pegantes.webp" alt="Pegantes Sensacolor" width="800" height="400" loading="lazy"><span class="rotulo"><h3>Pegantes</h3><span>Cerámica, porcelanato y boquilla</span></span></a>
     </div>
   </div>
 </section>
 
-<!-- FERRETEROS -->
-<section style="background:linear-gradient(135deg,#0f172a 0%,#1800ad 100%);padding:4rem 5%;position:relative;overflow:hidden">
-  <div style="position:absolute;width:500px;height:500px;background:rgba(255,255,255,0.03);border-radius:50%;top:-150px;right:-100px;pointer-events:none"></div>
-  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr auto;align-items:center;gap:3rem;position:relative;z-index:2">
+<section class="seccion papel" aria-labelledby="destacados-titulo">
+  <div class="envoltura">
+    <div class="encabezado">
+      <p class="eyebrow">Destacados</p>
+      <h2 id="destacados-titulo">Lo que más nos piden</h2>
+    </div>
+    <div class="carrusel" id="carrusel">
+      <div class="pista">
+<a href="https://wa.me/573209797767?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Sensacolor" target="_blank" rel="noopener"><img src="img/Banner_1.webp" alt="Sensacolor: colores que transforman, calidad que dura. Vinilos, esmaltes, anticorrosivos, estucos y pegantes" width="1200" height="630"></a>
+<a href="https://wa.me/573209797767?text=Hola%2C%20quiero%20hacer%20un%20pedido%20de%20Sensacolor" target="_blank" rel="noopener"><img src="img/Banner_2.webp" alt="Pide ahora por WhatsApp y recibe el mismo día en Barranquilla" width="1200" height="630" loading="lazy"></a>
+<a href="sensamastic.html"><img src="img/Banner_3.webp" alt="Sensamastic, masilla plástica para juntas: máxima adherencia, fácil aplicación, ideal para juntas y resanes" width="1200" height="630" loading="lazy"></a>
+<a href="impermeabilizante-sensafil.html"><img src="img/Banner_4.webp" alt="Sensafil impermeabilizante acrílico y elástico" width="1200" height="630" loading="lazy"></a>
+      </div>
+      <button class="flecha izq" type="button" aria-label="Anterior">‹</button>
+      <button class="flecha der" type="button" aria-label="Siguiente">›</button>
+    </div>
+    <div class="puntos" id="puntos"></div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="porque-titulo">
+  <div class="envoltura">
+    <div class="encabezado">
+      <p class="eyebrow">Por qué Sensacolor</p>
+      <h2 id="porque-titulo">Directo de fábrica</h2>
+    </div>
+    <div class="razones">
+      <div><h3>Sin intermediarios</h3><p>Precio justo y producto fresco, directo de producción.</p></div>
+      <div><h3>Planta propia</h3><p>Formulamos y controlamos la calidad de cada lote en nuestra fábrica de Barranquilla.</p></div>
+      <div><h3>Hecho para la costa</h3><p>Productos pensados para el sol, la lluvia y la humedad del Caribe.</p></div>
+      <div><h3>Asesoría real</h3><p>Te atendemos por WhatsApp y te ayudamos a elegir el producto correcto.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion papel" id="ferreteros">
+  <div class="envoltura">
+    <div class="ferreteros">
+      <div>
+        <p class="eyebrow" style="color:var(--oro)">Para ferreterías y distribuidores</p>
+        <h2>Vende Sensacolor en tu negocio</h2>
+        <p>Trabajamos con ferreterías y distribuidores en toda la región Caribe, con el respaldo de una marca con más de 17 años en el mercado.</p>
+        <a class="btn btn-blanco" href="https://wa.me/573209797767?text=Hola%2C%20soy%20ferretero%20y%20quiero%20ofrecer%20Sensacolor%20en%20mi%20negocio" target="_blank" rel="noopener">Quiero ser distribuidor</a>
+      </div>
+      <ul>
+        <li>Precios por volumen</li>
+        <li>Producto directo de fábrica</li>
+        <li>Línea completa: pintura, estuco, impermeabilizante y pegantes</li>
+        <li>Atención directa por WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="faq-titulo">
+  <div class="envoltura">
+    <div class="encabezado">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 id="faq-titulo">Lo que nos preguntan</h2>
+    </div>
+    <div class="preguntas">
+<details><summary>¿Dónde compro productos Sensacolor?</summary><p>Puedes pedir directo a la fábrica por WhatsApp al 320 979 7767, o conseguirlos en ferreterías y distribuidores de la región Caribe que trabajan con nosotros. Escríbenos y te decimos cuál te queda más cerca.</p></details>
+<details><summary>¿Hacen entregas en Barranquilla?</summary><p>Sí. Los pedidos en Barranquilla se pueden entregar el mismo día; aplican términos y condiciones. Escríbenos con tu pedido y tu barrio para confirmarte.</p></details>
+<details><summary>¿En qué presentaciones vienen?</summary><p>Los vinilos, estucos y Sensafil vienen en galón, ½ cuñete y cuñete. Los esmaltes y el anticorrosivo en galón y ¼ de galón. Los pegantes y el estuco en polvo en bolsa de 25 kg, y la boquilla y el Fijacolor en 2 kg.</p></details>
+<details><summary>¿Qué colores tienen?</summary><p>Tenemos más de 30 colores para interiores, exteriores y acabados especiales. Pídenos la carta de colores por WhatsApp y te la enviamos.</p></details>
+<details><summary>Tengo una ferretería, ¿puedo vender Sensacolor?</summary><p>Sí. Trabajamos con ferreterías y distribuidores en toda la región Caribe, con precios por volumen y producto directo de fábrica. Escríbenos y te enviamos la información.</p></details>
+<details><summary>¿Sensacolor es la misma marca de México o Venezuela?</summary><p>No. Pinturas Sensacolor S.A.S. es una fábrica colombiana con sede en Barranquilla, sin relación con marcas de nombre parecido en otros países.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="seccion papel" id="contacto">
+  <div class="envoltura contacto">
     <div>
-      <div style="display:inline-block;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.9);font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:100px;border:1px solid rgba(255,255,255,0.2);margin-bottom:1.2rem">Para ferreterías y distribuidores</div>
-      <h2 style="font-size:clamp(1.6rem,2.5vw,2.4rem);font-weight:900;color:white;line-height:1.15;margin-bottom:1rem;letter-spacing:-0.02em">¿Eres ferretero o distribuidor? <span style="color:rgba(255,255,255,0.6)">Ofrece Sensacolor en tu negocio.</span></h2>
-      <p style="font-size:1rem;color:rgba(255,255,255,0.75);line-height:1.7;font-weight:300">Trabajamos con ferreterías y distribuidores en toda la región Caribe. Precios por volumen, producto directo de fábrica y respaldo de una marca con más de 17 años en el mercado.</p>
+      <div class="encabezado">
+        <p class="eyebrow">Contacto</p>
+        <h2>Hablemos de tu obra</h2>
+        <p>Escríbenos y te asesoramos. Respondemos por WhatsApp.</p>
+      </div>
+      <div class="contacto-datos">
+        <div class="dato"><small>WhatsApp</small><a href="https://wa.me/573209797767" target="_blank" rel="noopener">320 979 7767</a></div>
+        <div class="dato"><small>Correo</small><a href="mailto:infopinsensacolor@gmail.com">infopinsensacolor@gmail.com</a></div>
+        <div class="dato"><small>Ciudad</small><span>Barranquilla, Atlántico</span></div>
+      </div>
     </div>
-    <div style="flex-shrink:0;text-align:center">
-      <a href="https://wa.me/573209797767?text=Hola,%20soy%20ferretero%20y%20quiero%20ofrecer%20Sensacolor%20en%20mi%20negocio" target="_blank" style="display:inline-block;background:#25D366;color:white;padding:1.1rem 2.2rem;border-radius:10px;font-weight:700;font-size:1rem;text-decoration:none;white-space:nowrap;box-shadow:0 4px 20px rgba(37,211,102,0.3)">Escríbenos ahora</a>
-    </div>
+    <form class="formulario" id="formulario">
+      <div class="fila">
+        <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" required autocomplete="name"></div>
+        <div class="campo"><label for="f-ciudad">Ciudad o barrio</label><input id="f-ciudad" name="ciudad" autocomplete="address-level2"></div>
+      </div>
+      <div class="campo"><label for="f-producto">Producto de interés</label>
+        <select id="f-producto" name="producto"><option>No estoy seguro, necesito asesoría</option><option>Vinilo Tipo 1</option>
+<option>Vinilo Tipo 2</option>
+<option>Esmalte</option>
+<option>Esmalte Pro</option>
+<option>Anticorrosivo</option>
+<option>Estuco Acrílico Exterior e Interior</option>
+<option>Estuco Acrílico Interior</option>
+<option>Estuco Acrílico en Polvo</option>
+<option>Sensafil</option>
+<option>Sensamastic</option>
+<option>Pegante Cerámico</option>
+<option>Pegante Cerámico Premium</option>
+<option>Pegante Porcelanato PegaColor</option>
+<option>Boquilla PegaColor</option>
+<option>Fijacolor</option><option>Quiero ser distribuidor</option></select></div>
+      <div class="campo"><label for="f-mensaje">Cuéntanos qué necesitas</label><textarea id="f-mensaje" name="mensaje" placeholder="Ej.: Quiero pintar la fachada de una casa de dos pisos"></textarea></div>
+      <button class="btn btn-wa" type="submit"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.35 9.35 0 0 1 2.76 6.66c0 5.2-4.23 9.42-9.42 9.42zm8.02-17.44A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.07c0 2 .52 3.94 1.51 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.77 1.47h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.31-8.01z"/></svg>Enviar por WhatsApp</button>
+      <p class="ayuda">Se abre WhatsApp con tu mensaje listo para enviar.</p>
+    </form>
   </div>
 </section>
-
-<!-- CATEGORÍAS -->
-<section class="categorias" id="productos">
-  <div class="section-header">
-    <div class="section-eyebrow">Catálogo completo</div>
-    <h2>Nuestros productos</h2>
-    <p>Selecciona una categoría para ver los productos disponibles</p>
-  </div>
-  <div class="categorias-grid">
-    <div class="categoria-card" onclick="abrirModal('vinilos')">
-      <div class="categoria-img"><img src="Vinilos.png" alt="Vinilos"><div class="categoria-overlay"><h3>Vinilos</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-    <div class="categoria-card" onclick="abrirModal('esmaltes')">
-      <div class="categoria-img"><img src="Esmaltes.png" alt="Esmaltes"><div class="categoria-overlay"><h3>Esmaltes y Anticorrosivo</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-    <div class="categoria-card" onclick="abrirModal('estucos')">
-      <div class="categoria-img"><img src="Estucos.png" alt="Estucos"><div class="categoria-overlay"><h3>Estucos</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-    <div class="categoria-card" onclick="abrirModal('sensafil')">
-      <div class="categoria-img"><img src="Cover_Sensafil.png" alt="Sensafil"><div class="categoria-overlay"><h3>Impermeabilizante Sensafil</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-    <div class="categoria-card" onclick="abrirModal('sensamastic')">
-      <div class="categoria-img"><img src="Cover_Sensamastic.png" alt="Sensamastic"><div class="categoria-overlay"><h3>Sensamastic</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-    <div class="categoria-card" onclick="abrirModal('pegantes')">
-      <div class="categoria-img"><img src="Pegantes.png" alt="Pegantes"><div class="categoria-overlay"><h3>Pegantes</h3></div></div>
-      <div class="categoria-footer"><div class="categoria-arrow"><svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- MODAL VINILOS -->
-<div class="modal-overlay" id="modal-vinilos">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('vinilos')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Vinilos</h2>
-    <p class="modal-desc">Pinturas vinílicas para interiores y exteriores con amplia paleta de colores.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Vinilo_Tipo_1.png" alt="Vinilo Tipo 1"></div>
-        <div class="producto-item-body"><h4>Vinilo Tipo 1 — Ultra Lavable</h4><p>Para uso exterior e interior. Máxima resistencia al sol, lluvia y desgaste.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Vinilo%20Tipo%201" class="btn-pedir" target="_blank">Pedir ahora</a></div>
+</main>
+<footer class="pie">
+  <div class="envoltura">
+    <div class="rejilla">
+      <div>
+        <img src="img/logo-blanco.png" alt="Sensacolor" width="775" height="220">
+        <p>Fábrica de Pinturas Sensacolor S.A.S. Vinilos, esmaltes, estucos, impermeabilizantes y pegantes hechos en Barranquilla para la región Caribe colombiana.</p>
       </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Vinilo_Tipo_2.png" alt="Vinilo Tipo 2"></div>
-        <div class="producto-item-body"><h4>Vinilo Tipo 2 — Rendimiento Óptimo</h4><p>Para uso interior. Alta durabilidad, excelente cobertura y rendimiento óptimo.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Vinilo%20Tipo%202" class="btn-pedir" target="_blank">Pedir ahora</a></div>
+      <div>
+        <h3>Productos</h3>
+        <ul><li><a href="vinilos.html">Vinilos</a></li>
+<li><a href="esmaltes-anticorrosivo.html">Esmaltes y anticorrosivo</a></li>
+<li><a href="estucos.html">Estucos</a></li>
+<li><a href="impermeabilizante-sensafil.html">Impermeabilizante Sensafil</a></li>
+<li><a href="sensamastic.html">Sensamastic</a></li>
+<li><a href="pegantes.html">Pegantes</a></li></ul>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <ul>
+          <li><a href="https://wa.me/573209797767" target="_blank" rel="noopener">WhatsApp 320 979 7767</a></li>
+          <li><a href="mailto:infopinsensacolor@gmail.com">infopinsensacolor@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/pinturasensacolor" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@pinturasensacolor" target="_blank" rel="noopener">TikTok</a></li>
+          <li>Barranquilla, Atlántico, Colombia</li>
+        </ul>
       </div>
     </div>
-    <div class="modal-cta"><p>¿Dudas sobre cuál vinilo necesitas?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20vinilos%20Sensacolor" class="btn-whatsapp-modal" target="_blank">Asesoría por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- MODAL ESMALTES -->
-<div class="modal-overlay" id="modal-esmaltes">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('esmaltes')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Esmaltes y Anticorrosivo</h2>
-    <p class="modal-desc">Protección y acabado de alto rendimiento para madera, metal y superficies duras.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Esmalte.png" alt="Esmalte"></div>
-        <div class="producto-item-body"><h4>Esmalte — Protección Duradera</h4><p>Para estructuras metálicas, puertas, portones, ventanas, rejas y marcos.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/4</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Esmalte" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Esmalte_Pro.png" alt="Esmalte Pro"></div>
-        <div class="producto-item-body"><h4>Esmalte Pro — 2 en 1</h4><p>Esmalte y anticorrosivo en uno. Más práctico y económico. Exterior e interior.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/4</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Esmalte%20Pro" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Anticorrosivo.png" alt="Anticorrosivo"></div>
-        <div class="producto-item-body"><h4>Anticorrosivo — Erradica la Corrosión</h4><p>Protección superior para estructuras metálicas. Alta adherencia y resistencia extrema.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/4</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Anticorrosivo" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-    </div>
-    <div class="modal-cta"><p>¿Necesitas más información?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20esmaltes%20Sensacolor" class="btn-whatsapp-modal" target="_blank">Consultar por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- MODAL ESTUCOS -->
-<div class="modal-overlay" id="modal-estucos">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('estucos')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Estucos</h2>
-    <p class="modal-desc">Base perfecta antes de pintar. Formulaciones para interior, exterior y en polvo.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Estuco_Exterior.png" alt="Estuco Exterior"></div>
-        <div class="producto-item-body"><h4>Estuco Acrílico Exterior e Interior</h4><p>Resistente al clima. Alta adherencia y acabado liso.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Estuco%20Exterior" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Estuco_Interior.png" alt="Estuco Interior"></div>
-        <div class="producto-item-body"><h4>Estuco Acrílico Interior</h4><p>Secado rápido, fácil de lijar y acabado fino. Ideal para interiores.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Estuco%20Interior" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Estuco_Polvo.png" alt="Estuco en Polvo"></div>
-        <div class="producto-item-body"><h4>Estuco Acrílico en Polvo</h4><p>Exterior, interior o base. Alta resistencia, fácil aplicación. 25 kg.</p><div class="producto-tags"><span class="tag">Bolsa 25 kg</span><span class="tag">Exterior</span><span class="tag">Interior</span><span class="tag">Base</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Estuco%20en%20Polvo" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-    </div>
-    <div class="modal-cta"><p>¿Dudas sobre qué estuco necesitas?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20estucos%20Sensacolor" class="btn-whatsapp-modal" target="_blank">Consultar por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- MODAL SENSAFIL -->
-<div class="modal-overlay" id="modal-sensafil">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('sensafil')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Impermeabilizante Sensafil</h2>
-    <p class="modal-desc">Protección total contra filtraciones. Acrílico y elástico para techos, terrazas, culatas y baños.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Impermeabilizante_Sensafil.png" alt="Sensafil"></div>
-        <div class="producto-item-body"><h4>Sensafil Impermeabilizante</h4><p>Evita filtraciones, protege fachadas, techos y muros. Sin soplete.</p><div class="producto-tags"><span class="tag">Galón</span><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Sensafil" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-    </div>
-    <div class="modal-cta"><p>¿Problemas de filtraciones?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20el%20Sensafil" class="btn-whatsapp-modal" target="_blank">Consultar por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- MODAL SENSAMASTIC -->
-<div class="modal-overlay" id="modal-sensamastic">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('sensamastic')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Sensamastic</h2>
-    <p class="modal-desc">Masilla plástica para juntas. Professional Joint Compound multipropósito.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Sensamastic.png" alt="Sensamastic"></div>
-        <div class="producto-item-body"><h4>Sensamastic — Masilla Plástica para Juntas</h4><p>Ideal para juntas y drywall. Alta adherencia, fácil aplicación. Multipropósito.</p><div class="producto-tags"><span class="tag">1/2 Cuñete</span><span class="tag">Cuñete</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Sensamastic" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-    </div>
-    <div class="modal-cta"><p>¿Necesitas más información?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20el%20Sensamastic" class="btn-whatsapp-modal" target="_blank">Consultar por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- MODAL PEGANTES -->
-<div class="modal-overlay" id="modal-pegantes">
-  <div class="modal">
-    <button class="modal-close" onclick="cerrarModal('pegantes')">✕</button>
-    <div class="modal-eyebrow">Categoría</div>
-    <h2>Pegantes</h2>
-    <p class="modal-desc">Adhesivos de alta resistencia para cerámica, porcelanato y baldosas.</p>
-    <div class="productos-lista">
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Pegante_Ceramico.png" alt="Pegante Cerámico"></div>
-        <div class="producto-item-body"><h4>Pegante Cerámico</h4><p>Para pisos y paredes. Mayor rendimiento, fácil aplicación y gran adherencia. 25 kg.</p><div class="producto-tags"><span class="tag">Gris</span><span class="tag">Blanco</span><span class="tag">25 kg</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Pegante%20Cerámico" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Pegante_Ceramico_Premium.png" alt="Pegante Premium"></div>
-        <div class="producto-item-body"><h4>Pegante Cerámico Premium</h4><p>Con látex. Para baños y exteriores. Mayor resistencia a humedad y calor.</p><div class="producto-tags"><span class="tag">Gris</span><span class="tag">25 kg</span><span class="tag">Con látex</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Pegante%20Premium" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Fijacolor.png" alt="Fijacolor"></div>
-        <div class="producto-item-body"><h4>Fijacolor</h4><p>Aditivo para mezcla de cemento. Manejable y elástico. Para pisos y paredes. 2 kg.</p><div class="producto-tags"><span class="tag">2 kg</span><span class="tag">Pisos</span><span class="tag">Paredes</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Fijacolor" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Boquilla.png" alt="Boquilla"></div>
-        <div class="producto-item-body"><h4>Boquilla PegaColor</h4><p>Con látex para rellenar juntas. En blanco, gris o beige. 2 kg.</p><div class="producto-tags"><span class="tag">Blanco</span><span class="tag">Gris</span><span class="tag">Beige</span><span class="tag">2 kg</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20la%20Boquilla" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Pegante_Porcelanato.png" alt="Pegante Porcelanato"></div>
-        <div class="producto-item-body"><h4>Pegante Porcelanato PegaColor</h4><p>Con látex. Para superficies de baja porosidad. Interior y exterior. 25 kg.</p><div class="producto-tags"><span class="tag">Gris</span><span class="tag">Blanco</span><span class="tag">25 kg</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Pegante%20Porcelanato" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-      <div class="producto-item">
-        <div class="producto-item-img"><img src="Estuco_Polvo.png" alt="Estuco en Polvo"></div>
-        <div class="producto-item-body"><h4>Estuco Acrílico en Polvo</h4><p>Exterior, interior o base. Alta resistencia, fácil aplicación. 25 kg.</p><div class="producto-tags"><span class="tag">Exterior</span><span class="tag">Interior</span><span class="tag">Base</span><span class="tag">25 kg</span></div></div>
-        <div class="producto-item-cta"><a href="https://wa.me/573209797767?text=Hola,%20quiero%20información%20sobre%20el%20Estuco%20en%20Polvo" class="btn-pedir" target="_blank">Pedir ahora</a></div>
-      </div>
-    </div>
-    <div class="modal-cta"><p>¿Tienes preguntas sobre algún pegante?</p><a href="https://wa.me/573209797767?text=Hola,%20necesito%20asesoría%20sobre%20pegantes%20Sensacolor" class="btn-whatsapp-modal" target="_blank">Consultar por WhatsApp</a></div>
-  </div>
-</div>
-
-<!-- CONTACTO -->
-<section class="contacto-section" id="contacto">
-  <div class="contacto-inner">
-    <div class="section-eyebrow">Escríbenos</div>
-    <h2>¿Necesitas más información?</h2>
-    <p>Completa el formulario y te respondemos a la brevedad.</p>
-    <div class="contacto-form">
-      <form id="contactForm">
-        <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" name="nombre" placeholder="Tu nombre completo" required>
-        </div>
-        <div class="form-group">
-          <label>Teléfono o WhatsApp</label>
-          <input type="tel" name="telefono" placeholder="3XX XXX XXXX" required>
-        </div>
-        <div class="form-group">
-          <label>Ciudad</label>
-          <input type="text" name="ciudad" placeholder="¿En qué ciudad estás?">
-        </div>
-        <div class="form-group">
-          <label>Producto de interés</label>
-          <select name="producto">
-            <option value="">Selecciona un producto</option>
-            <option>Vinilo Tipo 1</option>
-            <option>Vinilo Tipo 2</option>
-            <option>Esmalte</option>
-            <option>Esmalte Pro 2 en 1</option>
-            <option>Anticorrosivo</option>
-            <option>Estuco Acrílico</option>
-            <option>Sensafil Impermeabilizante</option>
-            <option>Sensamastic</option>
-            <option>Pegantes</option>
-            <option>Otro / Varios</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Mensaje</label>
-          <textarea name="mensaje" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Enviar mensaje</button>
-        <div class="form-success" id="formSuccess">¡Mensaje enviado! Te contactaremos pronto.</div>
-      </form>
-    </div>
-    <div class="contacto-btns">
-      <a href="https://wa.me/573209797767" class="btn-whatsapp-contact" target="_blank">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        WhatsApp directo
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="cta-section">
-  <h2>Listos para atenderte</h2>
-  <p>Escríbenos y te asesoramos.</p>
-  <div class="cta-btns">
-    <a href="https://wa.me/573209797767" class="btn-whatsapp" target="_blank">Escribir por WhatsApp</a>
-    <a href="https://www.instagram.com/pinturasensacolor" class="btn-ig" target="_blank">Instagram</a>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo"><img src="logo.png" alt="Sensacolor"></div>
-    <div class="footer-links">
-      <a href="#productos">Productos</a>
-      <a href="#contacto">Contacto</a>
-      <a href="https://wa.me/573209797767" target="_blank">WhatsApp</a>
-      <a href="https://www.instagram.com/pinturasensacolor" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@pinturasensacolor" target="_blank">TikTok</a>
-    </div>
-    <div class="footer-copy">© 2026 Pinturas Sensacolor S.A.S · Barranquilla, Colombia</div>
+    <p class="legal">© 2026 Pinturas Sensacolor S.A.S. · Hecho en Barranquilla, Colombia</p>
   </div>
 </footer>
-
-<a href="https://wa.me/573209797767" class="whatsapp-float" target="_blank">
-  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-</a>
-
-<script>
-let sc=0;const ts=4;
-function actualizarSlider(){document.getElementById('slider').style.transform=`translateX(-${sc*100}%)`;document.querySelectorAll('.dot').forEach((d,i)=>d.style.opacity=i===sc?'1':'0.45')}
-function moverSlider(dir){sc=(sc+dir+ts)%ts;actualizarSlider()}
-function irASlide(i){sc=i;actualizarSlider()}
-setInterval(()=>moverSlider(1),5000);
-function abrirModal(id){document.getElementById('modal-'+id).classList.add('active');document.body.style.overflow='hidden'}
-function cerrarModal(id){document.getElementById('modal-'+id).classList.remove('active');document.body.style.overflow=''}
-document.querySelectorAll('.modal-overlay').forEach(o=>{o.addEventListener('click',function(e){if(e.target===this){this.classList.remove('active');document.body.style.overflow=''}})});
-document.addEventListener('keydown',function(e){if(e.key==='Escape'){document.querySelectorAll('.modal-overlay.active').forEach(m=>{m.classList.remove('active');document.body.style.overflow=''})}});
-document.getElementById('contactForm').addEventListener('submit',function(e){
-  e.preventDefault();
-  const data=new FormData(this);
-  const body=`Nombre: ${data.get('nombre')}%0ATel: ${data.get('telefono')}%0ACiudad: ${data.get('ciudad')}%0AProducto: ${data.get('producto')}%0AMensaje: ${data.get('mensaje')}`;
-  window.open('mailto:infopinsensacolor@gmail.com?subject=Solicitud%20de%20información%20Sensacolor&body='+body,'_blank');
-  document.getElementById('formSuccess').style.display='block';
-  this.reset();
-});
-</script>
+<a class="wa-flotante" href="https://wa.me/573209797767?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20productos%20Sensacolor" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.04 21.5h-.01a9.4 9.4 0 0 1-4.79-1.31l-.34-.2-3.56.93.95-3.47-.22-.36a9.39 9.39 0 0 1-1.44-5.01c0-5.19 4.23-9.42 9.43-9.42 2.52 0 4.88.98 6.66 2.76a9.35 9.35 0 0 1 2.76 6.66c0 5.2-4.23 9.42-9.42 9.42zm8.02-17.44A11.26 11.26 0 0 0 12.04.75C5.8.75.72 5.83.72 12.07c0 2 .52 3.94 1.51 5.66L.62 23.25l5.65-1.48a11.3 11.3 0 0 0 5.77 1.47h.01c6.24 0 11.32-5.08 11.32-11.32 0-3.02-1.18-5.87-3.31-8.01z"/></svg></a>
+<script src="site.js" defer></script>
 </body>
 </html>
